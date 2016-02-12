@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ComponentIHADatabaseModelStoreContainer" CdmEntityContainer="ComponentIHADatabaseEntities">
+    <EntitySetMapping Name="Category">
+      <EntityTypeMapping TypeName="ComponentIHADatabaseModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Component">
+      <EntityTypeMapping TypeName="ComponentIHADatabaseModel.Component">
+        <MappingFragment StoreEntitySet="Component">
+          <ScalarProperty Name="ComponentId" ColumnName="ComponentId" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="SerieNr" ColumnName="SerieNr" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Info" ColumnName="Info" />
+          <ScalarProperty Name="Datasheet" ColumnName="Datasheet" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="ManufacturerLink" ColumnName="ManufacturerLink" />
+          <ScalarProperty Name="AdminComment" ColumnName="AdminComment" />
+          <ScalarProperty Name="UserComment" ColumnName="UserComment" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LoanInformation">
+      <EntityTypeMapping TypeName="ComponentIHADatabaseModel.LoanInformation">
+        <MappingFragment StoreEntitySet="LoanInformation">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LoanDate" ColumnName="LoanDate" />
+          <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+          <ScalarProperty Name="IsEmailSend" ColumnName="IsEmailSend" />
+          <ScalarProperty Name="ReservationDate" ColumnName="ReservationDate" />
+          <ScalarProperty Name="ReservationId" ColumnName="ReservationId" />
+          <ScalarProperty Name="ComponentId" ColumnName="ComponentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Student">
+      <EntityTypeMapping TypeName="ComponentIHADatabaseModel.Student">
+        <MappingFragment StoreEntitySet="Student">
+          <ScalarProperty Name="Efternavn" ColumnName="Efternavn" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="MobileNr" ColumnName="MobileNr" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="C__RefactorLog">
+      <EntityTypeMapping TypeName="ComponentIHADatabaseModel.C__RefactorLog">
+        <MappingFragment StoreEntitySet="__RefactorLog">
+          <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

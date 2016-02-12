@@ -1,0 +1,47 @@
+﻿@model IEnumerable<IHAComponent.Models.LoanInformation>
+
+@{
+    ViewBag.Title = "Låneinformationer";
+}
+
+
+<h2>Låneinformationer</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SpecificComponent.Component1.Category.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpecificComponent.Component1.Name)
+        </th>
+        <th>
+            Antal udlånt
+        </th>
+        <th>
+            Antal Reserveret
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SpecificComponent.Component1.Category.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SpecificComponent.Component1.Name)
+        </td>
+        <td>
+            @ViewData[item.SpecificComponent.Component.ToString() + "Udlånt"]
+        </td>
+        <td>
+            @ViewData[item.SpecificComponent.Component.ToString() + "Reserveret"]
+        </td>
+        <td>
+            @Html.ActionLink("Detaljer", "Details", new {id = item.SpecificComponentId})
+        </td>
+    </tr>
+}
+
+</table>

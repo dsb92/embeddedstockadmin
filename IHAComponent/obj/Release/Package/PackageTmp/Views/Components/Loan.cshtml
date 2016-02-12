@@ -1,0 +1,122 @@
+﻿@model IHAComponent.Models.LoanInformation
+
+@{
+    ViewBag.Title = "title";
+}
+
+<h2>Udlån</h2>
+
+<div>
+    <h3>Kategori: @Html.DisplayFor(model => model.SpecificComponent.Component1.Category.Name)</h3>
+    <h4>Komponent: @Html.DisplayFor(model => model.SpecificComponent.Component1.Name)</h4>
+    <h4>Komponentnummer: @Html.DisplayFor(model => model.SpecificComponent.Number)</h4>
+    <h4>Serienr.: @Html.DisplayFor(model => model.SpecificComponent.SerieNr)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ReservationDate)
+        </dt>
+
+        <dd>
+            @if (Model.ReservationDate == null)
+            {
+                <p>Ingen</p>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.ReservationDate)
+            }
+        </dd>
+    </dl>
+</div>
+
+@{
+    if (@ViewBag.IsComponentAvailable == false)
+    {
+        <h3>Er allerede udlånt til:</h3>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Student.StudentId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Student.StudentId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Student.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Student.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Student.Efternavn)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Student.Efternavn)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Student.MobileNr)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Student.MobileNr)
+            </dd>
+
+        </dl>
+
+
+        return;
+    }
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Låne information</h4>
+        <hr />
+
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.SpecificComponentId)
+        @Html.HiddenFor(model => model.ReservationDate)
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReservationId, "Studienr.", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ReservationId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ReservationId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReturnDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ReturnDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ReturnDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Udlån" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Tilbage til listen", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

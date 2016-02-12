@@ -1,0 +1,98 @@
+﻿@model IEnumerable<IHAComponent.Models.LoanInformation>
+
+@{
+    ViewBag.Title = "Låneinformation";
+}
+
+<h2>Detaljer</h2>
+
+<div>
+    <h4>Låneinformation</h4>
+    <hr/>
+
+    <dl class="dl-horizontal">
+        <dt>
+            Kategori
+        </dt>
+
+        <dd>
+            @ViewBag.CategoryName
+        </dd>
+
+        <dt>
+            Komponent
+        </dt>
+
+        <dd>
+            @ViewBag.ComponentName
+        </dd>
+    </dl>
+
+    <table class="table">
+        <tr>
+            <th>
+                Nummer
+            </th>
+            <th>
+                Serier nr.
+            </th>
+            <th>
+                Studienr
+            </th>
+            <th>
+                Navn
+            </th>
+            <th>
+                Efternavn
+            </th>
+            <th>
+                Mobilnr
+            </th>
+            <th>
+                Reserveret den
+            </th>
+            <th>
+                Udlånt den
+            </th>
+            <th>
+                Afleveres den
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SpecificComponent.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SpecificComponent.SerieNr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.StudentId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.Efternavn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.MobileNr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReservationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoanDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReturnDate)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Tilbage til listen", "Index")
+</p>

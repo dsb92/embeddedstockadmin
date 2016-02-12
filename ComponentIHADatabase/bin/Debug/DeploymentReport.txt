@@ -1,0 +1,23 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Create
+       [dbo].[Category] (Table)
+       [dbo].[Component] (Table)
+       [dbo].[LoanInformation] (Table)
+       [dbo].[SpecificComponent] (Table)
+       [dbo].[Student] (Table)
+       [dbo].[FK_Component_To_Category] (Foreign Key)
+       [dbo].[FK_LoanInformation_To_Student] (Foreign Key)
+       [dbo].[FK_LoanInformation_To_Component] (Foreign Key)
+       [dbo].[FK_SpecificComponent_To_Component] (Foreign Key)
+
+** Supporting actions

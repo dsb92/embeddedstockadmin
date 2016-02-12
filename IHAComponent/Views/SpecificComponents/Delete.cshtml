@@ -1,0 +1,46 @@
+﻿@model IHAComponent.Models.SpecificComponent
+
+@{
+    ViewBag.Title = "Slet";
+}
+
+<h2>Slet</h2>
+
+<h3>Er du sikker på du vil slette denne?</h3>
+<div>
+    <h4>Specifikke komponent</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Component1.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Component1.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SerieNr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SerieNr)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Slet" class="btn btn-default" /> |
+            @Html.ActionLink("Tilbage til listen", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ComponentIHADatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Component">
+          <Key>
+            <PropertyRef Name="ComponentId" />
+          </Key>
+          <Property Name="ComponentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Image" Type="nvarchar(max)" />
+          <Property Name="ImageBytes" Type="varbinary(max)" />
+          <Property Name="Info" Type="nvarchar(max)" />
+          <Property Name="Datasheet" Type="nvarchar(max)" />
+          <Property Name="ManufacturerLink" Type="nvarchar(max)" />
+          <Property Name="AdminComment" Type="nvarchar(max)" />
+          <Property Name="UserComment" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="LoanInformation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoanDate" Type="datetime" />
+          <Property Name="ReturnDate" Type="datetime" />
+          <Property Name="IsEmailSend" Type="bit" />
+          <Property Name="ReservationDate" Type="datetime" />
+          <Property Name="ReservationId" Type="int" Nullable="false" />
+          <Property Name="SpecificComponentId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SpecificComponent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="SerieNr" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Component" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Efternavn" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="StudentId" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MobileNr" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Component_To_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Component" Type="Self.Component" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Component">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoanInformation_To_SpecificComponent">
+          <End Role="SpecificComponent" Type="Self.SpecificComponent" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LoanInformation" Type="Self.LoanInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpecificComponent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LoanInformation">
+              <PropertyRef Name="SpecificComponentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoanInformation_To_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="LoanInformation" Type="Self.LoanInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LoanInformation">
+              <PropertyRef Name="ReservationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpecificComponent_To_Component">
+          <End Role="Component" Type="Self.Component" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SpecificComponent" Type="Self.SpecificComponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Component">
+              <PropertyRef Name="ComponentId" />
+            </Principal>
+            <Dependent Role="SpecificComponent">
+              <PropertyRef Name="Component" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ComponentIHADatabaseModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Component" EntityType="Self.Component" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoanInformation" EntityType="Self.LoanInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpecificComponent" EntityType="Self.SpecificComponent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Component_To_Category" Association="Self.FK_Component_To_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Component" EntitySet="Component" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoanInformation_To_SpecificComponent" Association="Self.FK_LoanInformation_To_SpecificComponent">
+            <End Role="SpecificComponent" EntitySet="SpecificComponent" />
+            <End Role="LoanInformation" EntitySet="LoanInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoanInformation_To_Student" Association="Self.FK_LoanInformation_To_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="LoanInformation" EntitySet="LoanInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpecificComponent_To_Component" Association="Self.FK_SpecificComponent_To_Component">
+            <End Role="Component" EntitySet="Component" />
+            <End Role="SpecificComponent" EntitySet="SpecificComponent" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ComponentIHADatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Components" Relationship="Self.FK_Component_To_Category" FromRole="Category" ToRole="Component" />
+        </EntityType>
+        <EntityType Name="Component">
+          <Key>
+            <PropertyRef Name="ComponentId" />
+          </Key>
+          <Property Name="ComponentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Datasheet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ManufacturerLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AdminComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Component_To_Category" FromRole="Component" ToRole="Category" />
+          <NavigationProperty Name="SpecificComponents" Relationship="Self.FK_SpecificComponent_To_Component" FromRole="Component" ToRole="SpecificComponent" />
+          <Property Name="ImageBytes" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="LoanInformation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoanDate" Type="DateTime" Precision="3" />
+          <Property Name="ReturnDate" Type="DateTime" Precision="3" />
+          <Property Name="IsEmailSend" Type="Boolean" />
+          <Property Name="ReservationDate" Type="DateTime" Precision="3" />
+          <Property Name="ReservationId" Type="Int32" Nullable="false" />
+          <Property Name="SpecificComponentId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SpecificComponent" Relationship="Self.FK_LoanInformation_To_Component" FromRole="LoanInformation" ToRole="SpecificComponent" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_LoanInformation_To_Student" FromRole="LoanInformation" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="SpecificComponent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="SerieNr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Component" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Component1" Relationship="Self.FK_SpecificComponent_To_Component" FromRole="SpecificComponent" ToRole="Component" />
+          <NavigationProperty Name="LoanInformations" Relationship="Self.FK_LoanInformation_To_Component" FromRole="SpecificComponent" ToRole="LoanInformation" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Efternavn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MobileNr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LoanInformations" Relationship="Self.FK_LoanInformation_To_Student" FromRole="Student" ToRole="LoanInformation" />
+        </EntityType>
+        <Association Name="FK_Component_To_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Component" Type="Self.Component" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Component">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpecificComponent_To_Component">
+          <End Role="Component" Type="Self.Component" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SpecificComponent" Type="Self.SpecificComponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Component">
+              <PropertyRef Name="ComponentId" />
+            </Principal>
+            <Dependent Role="SpecificComponent">
+              <PropertyRef Name="Component" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoanInformation_To_Component">
+          <End Role="SpecificComponent" Type="Self.SpecificComponent" Multiplicity="1" />
+          <End Role="LoanInformation" Type="Self.LoanInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpecificComponent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LoanInformation">
+              <PropertyRef Name="SpecificComponentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoanInformation_To_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="LoanInformation" Type="Self.LoanInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LoanInformation">
+              <PropertyRef Name="ReservationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ComponentIHADatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Components" EntityType="Self.Component" />
+          <EntitySet Name="LoanInformations" EntityType="Self.LoanInformation" />
+          <EntitySet Name="SpecificComponents" EntityType="Self.SpecificComponent" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <AssociationSet Name="FK_Component_To_Category" Association="Self.FK_Component_To_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Component" EntitySet="Components" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpecificComponent_To_Component" Association="Self.FK_SpecificComponent_To_Component">
+            <End Role="Component" EntitySet="Components" />
+            <End Role="SpecificComponent" EntitySet="SpecificComponents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoanInformation_To_Component" Association="Self.FK_LoanInformation_To_Component">
+            <End Role="SpecificComponent" EntitySet="SpecificComponents" />
+            <End Role="LoanInformation" EntitySet="LoanInformations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoanInformation_To_Student" Association="Self.FK_LoanInformation_To_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="LoanInformation" EntitySet="LoanInformations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ComponentIHADatabaseModelStoreContainer" CdmEntityContainer="ComponentIHADatabaseEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="ComponentIHADatabaseModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Components">
+            <EntityTypeMapping TypeName="ComponentIHADatabaseModel.Component">
+              <MappingFragment StoreEntitySet="Component">
+                <ScalarProperty Name="ImageBytes" ColumnName="ImageBytes" />
+                <ScalarProperty Name="ComponentId" ColumnName="ComponentId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+                <ScalarProperty Name="Datasheet" ColumnName="Datasheet" />
+                <ScalarProperty Name="ManufacturerLink" ColumnName="ManufacturerLink" />
+                <ScalarProperty Name="AdminComment" ColumnName="AdminComment" />
+                <ScalarProperty Name="UserComment" ColumnName="UserComment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoanInformations">
+            <EntityTypeMapping TypeName="ComponentIHADatabaseModel.LoanInformation">
+              <MappingFragment StoreEntitySet="LoanInformation">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LoanDate" ColumnName="LoanDate" />
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+                <ScalarProperty Name="IsEmailSend" ColumnName="IsEmailSend" />
+                <ScalarProperty Name="ReservationDate" ColumnName="ReservationDate" />
+                <ScalarProperty Name="ReservationId" ColumnName="ReservationId" />
+                <ScalarProperty Name="SpecificComponentId" ColumnName="SpecificComponentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpecificComponents">
+            <EntityTypeMapping TypeName="ComponentIHADatabaseModel.SpecificComponent">
+              <MappingFragment StoreEntitySet="SpecificComponent">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="SerieNr" ColumnName="SerieNr" />
+                <ScalarProperty Name="Component" ColumnName="Component" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="ComponentIHADatabaseModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Efternavn" ColumnName="Efternavn" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="MobileNr" ColumnName="MobileNr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

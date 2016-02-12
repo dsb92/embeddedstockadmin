@@ -1,0 +1,68 @@
+﻿@model IEnumerable<IHAComponent.Models.Component>
+
+@{
+    ViewBag.Title = "Komponenter";
+}
+
+
+@{
+    if (@ViewBag.Search == "Ingen komponenter fundet")
+    {
+        <h3>@ViewBag.Search</h3>
+        return;
+    }
+}
+
+<h3>@ViewBag.Search</h3>
+
+<h2>Komponent liste</h2>
+
+<p>
+    @Html.ActionLink("Tilføj ny komponent", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Datasheet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ManufacturerLink)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Datasheet)
+        </td>
+        <td>
+            <img src="@Url.Action("ViewImage", new {id = item.ComponentId})" class="img-responsive" alt="">
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ManufacturerLink)
+        </td>
+        <td>
+            @Html.ActionLink("Rediger", "Edit", new {id = item.ComponentId}) |
+            @Html.ActionLink("Detaljer", "Details", new {id = item.ComponentId}) |
+            @Html.ActionLink("Slet", "Delete", new {id = item.ComponentId})
+        </td>
+    </tr>
+}
+
+</table>

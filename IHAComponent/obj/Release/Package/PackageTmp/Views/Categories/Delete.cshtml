@@ -1,0 +1,32 @@
+﻿@model IHAComponent.Models.Category
+
+@{
+    ViewBag.Title = "Slet kategori";
+}
+
+<h2>Slet</h2>
+
+<h3>Er du sikker på du vil slette denne kategori?</h3>
+<div>
+    <h4>Kategori</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Slet" class="btn btn-default" /> |
+            @Html.ActionLink("Tilbage til listen", "Index")
+        </div>
+    }
+</div>

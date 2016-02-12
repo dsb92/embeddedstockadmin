@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Startside";
+}
+
+<div class="row row-offcanvas-right row-offcanvas">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 sidebar-offcanvas" id="sidebar" role="navigation">
+        <div class="list-group">
+            <span class="label label-primary">Alle</span>
+            <a href="@Url.Action("Index", "Categories")" class="list-group-item">Kategorier</a>
+            <a href="@Url.Action("Index", "Components")" class="list-group-item">Unikke komponenter</a>
+            <a href="@Url.Action("Index", "SpecificComponents")" class="list-group-item">Nummer og Seriernr.</a>
+            <a href="@Url.Action("Index", "LoanInformations")" class="list-group-item">Udlånte komponenter</a>
+            <a href="@Url.Action("Index", "Students")" class="list-group-item">Studerende</a>
+            <a href="@Url.Action("Index", "About")" class="list-group-item">Info side</a>
+            <br>
+            <p id="BackToMyPage"></p>
+        </div>
+    </div>
+</div>

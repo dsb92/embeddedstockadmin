@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\aspnet-IHAComponent-20151102033925.mdf;Initial Catalog=aspnet-IHAComponent-20151102033925;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="Y:\\Box\ Sync\\IHA\\7\.semester\\ITTWEB\\Obligatoriske\ opgaver\\1\ -\ Admin\ modul\ til\ komponent\ IHA\\IHAComponent\\IHAComponent\\IHAComponent\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="ComponentIHADatabaseEntities-Web.config Connection String" description="ComponentIHADatabaseEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.IHAComponentsDataModel.csdl|res://*/Models.IHAComponentsDataModel.ssdl|res://*/Models.IHAComponentsDataModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=(localdb)\ProjectsV12;initial catalog=ComponentIHADatabase;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="Y:\\Box\ Sync\\IHA\\7\.semester\\ITTWEB\\Obligatoriske\ opgaver\\1\ -\ Admin\ modul\ til\ komponent\ IHA\\IHAComponent\\IHAComponent\\IHAComponent\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ComponentIHADatabaseEntities']/@connectionString" />
+  </parameter>
+</parameters>
